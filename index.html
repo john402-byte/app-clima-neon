@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neón Weather App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script type="module" crossorigin src="/app-clima-neon/assets/index-D9sUle1K.js"></script>
+  <link rel="stylesheet" crossorigin href="/app-clima-neon/assets/index-Khr8oMRz.css">
+</head>
+<body>
+  <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    
+    <h1 class="neon-title mb-4"><i class="fa-solid fa-cloud-bolt"></i> CLIMA_OS</h1>
+    
+    <div class="search-box mb-4 d-flex w-100" style="max-width: 400px;">
+      <input type="text" id="cityInput" class="form-control cyber-input" placeholder="INGRESA CIUDAD...">
+      <button id="searchBtn" class="btn btn-cyber ms-2"><i class="fa-solid fa-satellite-dish"></i></button>
+    </div>
+
+    <div id="weatherCard" class="cyber-card d-none position-relative text-center p-4">
+      <button id="closeBtn" class="btn-close-cyber"><i class="fa-solid fa-xmark"></i></button>
+      <h2 id="cityName" class="text-uppercase mb-0">--</h2>
+      <p id="weatherDesc" class="text-muted text-uppercase mb-2">--</p>
+      <img id="weatherIcon" src="" alt="Clima" width="120">
+      <h1 id="temperature" class="display-1 fw-bold neon-text">--°C</h1>
+      
+      <div class="row mt-4 details-box">
+        <div class="col-6 border-end border-info">
+          <p class="mb-0"><i class="fa-solid fa-droplet"></i> HUMEDAD</p>
+          <h4 id="humidity">--%</h4>
+        </div>
+        <div class="col-6">
+          <p class="mb-0"><i class="fa-solid fa-wind"></i> VIENTO</p>
+          <h4 id="windSpeed">-- km/h</h4>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+</body>
+</html>
