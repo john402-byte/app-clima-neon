@@ -1,50 +1,47 @@
-import './style.css';
+import './style.css'
 
-// 🔒 Vite trae tu llave de forma segura
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = "7752800185464718be9223245261804";
 
 const cityInput = document.getElementById('cityInput');
 const searchBtn = document.getElementById('searchBtn');
 const weatherCard = document.getElementById('weatherCard');
-const closeBtn = document.getElementById('closeBtn');
 
 async function checkWeather(city) {
-  try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`;
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      alert("CIUDAD NO ENCONTRADA EN LA BASE DE DATOS.");
-      return;
+    try {
+        const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&lang=es`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.status !== 200) {
+            alert("CIUDAD NO ENCONTRADA");
+            return;
+        }
+
+        document.getElementById('cityName').innerText = data.location.name;
+        document.getElementById('temperature').innerText = Math.round(data.current.temp_c) + "°C";
+        document.getElementById('weatherDesc').innerText = data.current.condition.text;
+        document.getElementById('humidity').innerText = data.current.humidity + "%";
+        document.getElementById('windSpeed').innerText = data.current.wind_kph + " km/h";
+        document.getElementById('weatherIcon').src = "https:" + data.current.condition.icon;
+
+        // Mostrar la tarjeta
+        weatherCard.classList.remove('d-none');
+
+    } catch (error) {
+        console.error("Error:", error);
     }
-
-    const data = await response.json();
-
-    document.getElementById('cityName').innerText = data.name;
-    document.getElementById('temperature').innerText = Math.round(data.main.temp) + "°C";
-    document.getElementById('weatherDesc').innerText = data.weather[0].description;
-    document.getElementById('humidity').innerText = data.main.humidity + "%";
-    document.getElementById('windSpeed').innerText = data.wind.speed + " km/h";
-    
-    const iconCode = data.weather[0].icon;
-    document.getElementById('weatherIcon').src = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
-
-    weatherCard.classList.remove('d-none');
-    
-  } catch (error) {
-    console.error("Error al conectar con la API:", error);
-  }
 }
 
+// Evento para el botón
 searchBtn.addEventListener('click', () => {
-  if (cityInput.value !== "") checkWeather(cityInput.value);
+    if (cityInput.value.trim() !== "") {
+        checkWeather(cityInput.value);
+    }
 });
 
-cityInput.addEventListener('keypress', (event) => {
-  if (event.key === "Enter" && cityInput.value !== "") checkWeather(cityInput.value);
-});
-
-closeBtn.addEventListener('click', () => {
-  weatherCard.classList.add('d-none');
-  cityInput.value = ""; 
+// Evento para la tecla Enter
+cityInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        checkWeather(cityInput.value);
+    }
 });
